@@ -1,0 +1,366 @@
+basePath: /
+definitions:
+  httpserver.Response:
+    properties:
+      data: {}
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  models.SongName:
+    properties:
+      song:
+        type: string
+    type: object
+  models.SongRequest:
+    properties:
+      group:
+        type: string
+      song:
+        type: string
+    type: object
+  models.SongResponse:
+    properties:
+      group:
+        type: string
+      id:
+        type: integer
+      link:
+        type: string
+      releaseDate:
+        type: string
+      song:
+        type: string
+      text:
+        type: string
+    type: object
+host: 127.0.0.1:8000
+info:
+  contact:
+    email: support@swagger.io
+    url: http://www.swagger.io/support
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Song Lib API
+  version: "1.0"
+paths:
+  /song/{id}:
+    delete:
+      description: Delete a specific song by its ID
+      parameters:
+      - description: Song ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+      summary: Delete song
+      tags:
+      - songs
+    get:
+      description: Get a specific song by its unique ID
+      parameters:
+      - description: Song ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+      summary: Get song by ID
+      tags:
+      - songs
+    patch:
+      consumes:
+      - application/json
+      description: Update the details of a song by its ID
+      parameters:
+      - description: Song ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Updated Song Data
+        in: body
+        name: song
+        required: true
+        schema:
+          $ref: '#/definitions/models.SongResponse'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+      summary: Update song
+      tags:
+      - songs
+    put:
+      consumes:
+      - application/json
+      description: Update the details of a song by its ID
+      parameters:
+      - description: Song ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Updated Song Data
+        in: body
+        name: song
+        required: true
+        schema:
+          $ref: '#/definitions/models.SongResponse'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+      summary: Update song
+      tags:
+      - songs
+  /song/{id}/text:
+    get:
+      description: Fetch the text of a specific song using its ID
+      parameters:
+      - description: Song ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Verse
+        in: query
+        name: verse
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+      summary: Get song text by ID
+      tags:
+      - songs
+  /song/all:
+    get:
+      description: Fetch songs that match the provided filters
+      parameters:
+      - description: Song group
+        in: query
+        name: group
+        type: string
+      - description: Song name
+        in: query
+        name: name
+        type: string
+      - description: Song text
+        in: query
+        name: text
+        type: string
+      - description: External link
+        in: query
+        name: link
+        type: string
+      - description: Release date (YYYY-MM-DD)
+        in: query
+        name: releaseDate
+        type: string
+      - description: Page number
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+      summary: Get all songs
+      tags:
+      - songs
+  /song/create:
+    post:
+      consumes:
+      - application/json
+      description: Add a new song to the music library
+      parameters:
+      - description: Song Request
+        in: body
+        name: song
+        required: true
+        schema:
+          $ref: '#/definitions/models.SongRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+      summary: Add a new song
+      tags:
+      - songs
+  /song/name:
+    get:
+      consumes:
+      - application/json
+      description: Get a specific song by its name
+      parameters:
+      - description: Song Name
+        in: body
+        name: song
+        required: true
+        schema:
+          $ref: '#/definitions/models.SongName'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+      summary: Get song by name
+      tags:
+      - songs
+  /song/name/text:
+    get:
+      consumes:
+      - application/json
+      description: Fetch the text of a specific song using its name
+      parameters:
+      - description: Name
+        in: query
+        name: name
+        type: string
+      - description: Verse
+        in: query
+        name: verse
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpserver.Response'
+      summary: Get song text by name
+      tags:
+      - songs
+swagger: "2.0"

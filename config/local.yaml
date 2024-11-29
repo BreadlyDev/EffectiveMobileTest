@@ -1,0 +1,27 @@
+env: "local"
+
+http_server:
+  host: "localhost"
+  port: 8000
+  timeout: 60s
+  idle_timeout: 60s
+
+storage:
+  host: "localhost"
+  port: 5432
+  user: "postgres"
+  pass: "postgres"
+  db_name: "song_lib"
+  ssl_mode: "disable"
+
+api_client:
+  protocol: "http"
+  address: "localhost:3000"
+  url: "/info"
+
+pagination:
+  page_size: 10
+
+migrations:
+  path: "./migrations"
+  table: "migrations"
