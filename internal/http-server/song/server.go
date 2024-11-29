@@ -34,7 +34,7 @@ func New(log *slog.Logger, pageSize int, service Service) *Server {
 func (s *Server) RegisterRoutes(mux *http.ServeMux) {
 	mux.HandleFunc("POST /song/create", s.CreateSong)
 	mux.HandleFunc("GET /song/{id}", s.GetSongByID)
-	mux.HandleFunc("GET /song", s.GetSongByName)
+	mux.HandleFunc("GET /song/name", s.GetSongByName)
 	mux.HandleFunc("GET /song/{id}/text", s.GetSongTextByID)
 	mux.HandleFunc("GET /song/name/text", s.GetSongTextByName)
 	mux.HandleFunc("PATCH /song/{id}", s.UpdateSong)
