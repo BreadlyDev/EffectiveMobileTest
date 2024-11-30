@@ -19,7 +19,7 @@ var (
 type Response struct {
 	Message string `json:"message"`
 	Status  int    `json:"status"`
-	Data    any    `json:"data"`
+	Data    any    `json:"data,omitempty"`
 }
 
 func NewResponse(message string, status int, data any) Response {
